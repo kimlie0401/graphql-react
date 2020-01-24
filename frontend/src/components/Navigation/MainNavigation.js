@@ -7,7 +7,7 @@ const mainNavigation = props => {
   return (
     <header className="main-navigation">
       <div className="main-navigation__logo">
-        <h1>EasyEvent</h1>
+        <h1>DK's Event</h1>
       </div>
       <div className="main-navigition__items">
         <ul>
