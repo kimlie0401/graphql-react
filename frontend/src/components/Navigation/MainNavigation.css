@@ -23,26 +23,26 @@
   font-size: 1.5rem;
 }
 
-.main-navigition__items {
+.main-navigation__items {
   margin-left: 1.5rem;
 }
 
-.main-navigition__items ul {
+.main-navigation__items ul {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.main-navigition__items li {
+.main-navigation__items li {
   margin: 0 1rem;
 }
-.main-navigition__items a:hover,
-.main-navigition__items a:active,
-.main-navigition__items a.active {
+.main-navigation__items a:hover,
+.main-navigation__items a:active,
+.main-navigation__items a.active {
   color: gray;
 }
-.main-navigition__items a {
+.main-navigation__items a {
   text-decoration: none;
   color: white;
 }
