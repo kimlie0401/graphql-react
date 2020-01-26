@@ -50,6 +50,7 @@ class App extends Component {
                 {this.state.token && (
                   <Route path="/bookings" component={BookingsPage} />
                 )}
+                <Redirect from="*" to="/" />
               </Switch>
             </main>
           </AuthContext.Provider>
