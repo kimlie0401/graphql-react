@@ -15,7 +15,7 @@ const Modal = styled.div`
 `;
 
 const Header = styled.header`
-  padding: 1rem;
+  padding: 0.5rem;
   background-color: rgba(46, 44, 44, 1);
 `;
 
