@@ -1,7 +1,7 @@
 .auth-form {
   width: 40rem;
   max-width: 80%;
-  margin: 5rem auto;
+  margin: 4rem auto;
 }
 
 .form-control label,
@@ -18,9 +18,9 @@
   margin-bottom: 1rem;
 }
 .form-actions button {
-  background-color: rgba(20, 20, 20, 0.8);
+  background-color: rgba(46, 44, 44, 0.8);
   font: inherit;
-  border: 1px solid rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(46, 44, 44, 0.8);
   border-radius: 3px;
   padding: 0.25rem 1rem;
   margin-right: 1rem;
