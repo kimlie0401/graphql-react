@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 import Modal from "../components/Modal/Modal";
 import Backdrop from "../components/Backdrop/Backdrop";
 import styled from "styled-components";
 import AuthContext from "../context/auth-context";
+import Loader from "../components/Loader";
 
 const Button = styled.button`
   background-color: rgba(46, 44, 44, 0.8);
@@ -60,15 +62,17 @@ const List = styled.ul`
   padding: 0;
 `;
 
-const Item = styled.li`
+const SLink = styled(Link)`
   margin: 1rem 0;
   padding: 1rem;
   border: 1px solid rgba(46, 44, 44, 0.8);
+  display: block;
 `;
 
 class EventsPage extends Component {
   state = {
     creating: false,
+    loading: true,
     events: []
   };
 
@@ -129,7 +133,7 @@ class EventsPage extends Component {
 
     const token = this.context.token;
 
-    fetch("http://localhost:8000/graphql", {
+    fetch("http://dkim0401.mooo.com:4588/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -174,7 +178,7 @@ class EventsPage extends Component {
         `
     };
 
-    fetch("http://localhost:8000/graphql", {
+    fetch("http://dkim0401.mooo.com:4588/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -189,7 +193,7 @@ class EventsPage extends Component {
       })
       .then(resData => {
         const events = resData.data.events;
-        this.setState({ events: events });
+        this.setState({ events: events, loading: false });
       })
       .catch(err => {
         console.log(err);
@@ -199,11 +203,13 @@ class EventsPage extends Component {
   render() {
     const eventList = this.state.events.map(event => {
       return (
-        <Item key={event._id} className="events__list-item">
+        <SLink to={`/events/${event._id}`} key={event._id}>
           {event.title}
-        </Item>
+        </SLink>
       );
     });
+
+    const { loading } = this.state;
 
     return (
       <Fragment>
@@ -246,7 +252,7 @@ class EventsPage extends Component {
             <Button onClick={this.startCreateEventHandler}>Create Event</Button>
           </Control>
         )}
-        <List>{eventList}</List>
+        {loading ? <Loader /> : <List>{eventList}</List>}
       </Fragment>
     );
   }
