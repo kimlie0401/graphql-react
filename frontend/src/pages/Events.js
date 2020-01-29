@@ -205,6 +205,16 @@ class EventsPage extends Component {
       return (
         <SLink to={`/events/${event._id}`} key={event._id}>
           {event.title}
+          {
+            <button
+              onClick={event => {
+                event.preventDefault();
+                alert("Clicked");
+              }}
+            >
+              Cancel
+            </button>
+          }
         </SLink>
       );
     });
