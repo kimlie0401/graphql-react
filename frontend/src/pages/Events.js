@@ -4,6 +4,7 @@ import Backdrop from "../components/Backdrop/Backdrop";
 import styled from "styled-components";
 import AuthContext from "../context/auth-context";
 import EventList from "../components/Events/EventList/EventList";
+import Loader from "../components/Loader";
 
 const Button = styled.button`
   background-color: rgba(46, 44, 44, 0.8);
@@ -106,10 +107,6 @@ class EventsPage extends Component {
               description
               date
               price
-              creator {
-                _id
-                email
-              }
             }
           }
         `
@@ -132,7 +129,20 @@ class EventsPage extends Component {
         return res.json();
       })
       .then(resData => {
-        this.fetchEvents();
+        this.setState(prevState => {
+          const updatedEvents = [...prevState.events];
+          updatedEvents.push({
+            _id: resData.data.createEvent._id,
+            title: resData.data.createEvent.title,
+            description: resData.data.createEvent.description,
+            date: resData.data.createEvent.date,
+            price: resData.data.createEvent.price,
+            creator: {
+              _id: this.context.userId
+            }
+          });
+          return { events: updatedEvents };
+        });
       })
       .catch(err => {
         console.log(err);
@@ -144,6 +154,7 @@ class EventsPage extends Component {
   };
 
   fetchEvents() {
+    this.setState({ loading: true });
     const requestBody = {
       query: `
           query {
@@ -181,6 +192,7 @@ class EventsPage extends Component {
       })
       .catch(err => {
         console.log(err);
+        this.setState({ loading: false });
       });
   }
 
@@ -244,7 +256,15 @@ class EventsPage extends Component {
             <Button onClick={this.startCreateEventHandler}>Create Event</Button>
           </Control>
         )}
-        <EventList events={this.state.events} loading={this.state.loading} />
+        {this.state.loading ? (
+          <Loader />
+        ) : (
+          <EventList
+            events={this.state.events}
+            loading={this.state.loading}
+            authUserId={this.context.userId}
+          />
+        )}
       </Fragment>
     );
   }

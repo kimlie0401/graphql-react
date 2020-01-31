@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Loader from "../../../components/Loader";
 import EventItem from "../EventList/EventItem/EventItem";
 
 const List = styled.ul`
@@ -18,10 +17,12 @@ const eventList = props => {
         eventId={event._id}
         title={event.title}
         key={event._id}
+        userId={props.authUserId}
+        creatorId={event.creator._id}
       ></EventItem>
     );
   });
-  return props.loading ? <Loader /> : <List>{event}</List>;
+  return <List>{event}</List>;
 };
 
 export default eventList;
