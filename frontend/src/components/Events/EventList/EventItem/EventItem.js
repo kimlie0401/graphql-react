@@ -41,7 +41,9 @@ const eventItem = props => (
   <SLink to={`/events/${props.eventId}`} key={props.eventId}>
     <div>
       <H1>{props.title}</H1>
-      <H2>$19.99</H2>
+      <H2>
+        ${props.price} - {new Date(props.date).toLocaleDateString()}
+      </H2>
     </div>
     <div>
       {props.userId === props.creatorId ? (
@@ -50,6 +52,7 @@ const eventItem = props => (
         <Button
           onClick={event => {
             event.preventDefault();
+            props.onDetail(props.eventId);
           }}
         >
           View Detail

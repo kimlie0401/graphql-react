@@ -8,13 +8,22 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
+  font-size: 5px;
   margin-top: 20px;
 `;
 
 export default () => (
   <Container>
-    <div className="lds-dual-ring"></div>
+    <div className="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     {/* <span role="img" aria-label="Loading">
       <svg
         version="1.1"

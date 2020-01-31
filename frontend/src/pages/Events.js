@@ -4,7 +4,7 @@ import Backdrop from "../components/Backdrop/Backdrop";
 import styled from "styled-components";
 import AuthContext from "../context/auth-context";
 import EventList from "../components/Events/EventList/EventList";
-import Loader from "../components/Loader";
+import Loader from "../components/Loader/Loader";
 
 const Button = styled.button`
   background-color: rgba(46, 44, 44, 0.8);
@@ -54,11 +54,22 @@ const Text = styled.textarea`
   display: block;
 `;
 
+const H1 = styled.h1`
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+`;
+
+const H2 = styled.h2`
+  margin-bottom: 1rem;
+  font-size: 1rem;
+`;
+
 class EventsPage extends Component {
   state = {
     creating: false,
     loading: true,
-    events: []
+    events: [],
+    selectedEvent: null
   };
 
   static contextType = AuthContext;
@@ -150,7 +161,7 @@ class EventsPage extends Component {
   };
 
   modalCancelHandler = () => {
-    this.setState({ creating: false });
+    this.setState({ creating: false, selectedEvent: null });
   };
 
   fetchEvents() {
@@ -196,6 +207,17 @@ class EventsPage extends Component {
       });
   }
 
+  showDetailHandler = eventId => {
+    this.setState(prevState => {
+      const selectedEvent = prevState.events.find(
+        event => event._id === eventId
+      );
+      return { selectedEvent: selectedEvent };
+    });
+  };
+
+  bookEventHandler = () => {};
+
   render() {
     // const eventList = this.state.events.map(event => {
     //   return (
@@ -225,6 +247,7 @@ class EventsPage extends Component {
             canConfirm
             onCancel={this.modalCancelHandler}
             onConfirm={this.modalConfirmHandler}
+            confirmText="Confirm"
           >
             <Form>
               <ControlM>
@@ -250,6 +273,24 @@ class EventsPage extends Component {
             </Form>
           </Modal>
         )}
+        {this.state.selectedEvent && <Backdrop />}
+        {this.state.selectedEvent && (
+          <Modal
+            title={this.state.selectedEvent.title}
+            canCancel
+            canConfirm
+            onCancel={this.modalCancelHandler}
+            onConfirm={this.bookEventHandler}
+            confirmText="Book"
+          >
+            <H1>{this.state.selectedEvent.title}</H1>
+            <H2>
+              ${this.state.selectedEvent.price} -{" "}
+              {new Date(this.state.selectedEvent.date).toLocaleDateString()}
+            </H2>
+            <p>{this.state.selectedEvent.description}</p>
+          </Modal>
+        )}
         {this.context.token && (
           <Control>
             <p>Share your own Events!</p>
@@ -261,8 +302,8 @@ class EventsPage extends Component {
         ) : (
           <EventList
             events={this.state.events}
-            loading={this.state.loading}
             authUserId={this.context.userId}
+            onViewDetail={this.showDetailHandler}
           />
         )}
       </Fragment>
