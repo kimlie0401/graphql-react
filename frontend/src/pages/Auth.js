@@ -44,20 +44,7 @@ class AuthPage extends Component {
       `
       };
 
-      if (!this.state.isLogin) {
-        requestBody = {
-          query: `
-          mutation {
-            createUser(userInput: {email: "${email}", password: "${password}"}) {
-              _id
-              email
-            }
-          }
-        `
-        };
-      }
-
-      fetch("http://dkim0401.mooo.com:4588/graphql", {
+      fetch("http://localhost:8000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -101,7 +88,7 @@ class AuthPage extends Component {
         `
       };
 
-      fetch("http://dkim0401.mooo.com:4588/graphql", {
+      fetch("http://localhost:8000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
