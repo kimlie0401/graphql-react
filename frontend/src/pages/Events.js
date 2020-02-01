@@ -217,7 +217,6 @@ class EventsPage extends Component {
   };
 
   eventDelete = eventId => {
-    console.log(eventId);
     const requestBody = {
       query: `
           mutation {
