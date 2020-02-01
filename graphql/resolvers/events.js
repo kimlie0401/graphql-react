@@ -21,6 +21,19 @@ module.exports = {
       throw err;
     }
   },
+  deleteEvent: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated!");
+    }
+    try {
+      const event = await Event.findById(args.eventId);
+      const eventCopy = transformEvent(event);
+      await event.deleteOne({ _id: args.eventId });
+      return eventCopy;
+    } catch (err) {
+      throw err;
+    }
+  },
   createEvent: async (args, req) => {
     if (!req.isAuth) {
       throw new Error("Unauthenticated!");

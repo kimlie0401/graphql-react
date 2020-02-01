@@ -22,6 +22,7 @@ const eventList = props => {
         price={event.price}
         date={event.date}
         onDetail={props.onViewDetail}
+        onDelete={props.onEventDelete}
       ></EventItem>
     );
   });

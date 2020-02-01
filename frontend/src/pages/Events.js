@@ -216,6 +216,45 @@ class EventsPage extends Component {
     });
   };
 
+  eventDelete = eventId => {
+    console.log(eventId);
+    const requestBody = {
+      query: `
+          mutation {
+            deleteEvent(eventId: "${eventId}") {
+              _id
+              title
+              description
+              date
+              price
+            }
+          }
+        `
+    };
+
+    const token = this.context.token;
+    fetch("http://dkim0401.mooo.com:4588/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token
+      }
+    })
+      .then(res => {
+        if (res.status !== 200 && res.status !== 201) {
+          throw new Error("Failed!");
+        }
+        return res.json();
+      })
+      .then(resData => {
+        this.fetchEvents();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   bookEventHandler = () => {
     alert("Booked!!");
   };
@@ -306,6 +345,7 @@ class EventsPage extends Component {
             events={this.state.events}
             authUserId={this.context.userId}
             onViewDetail={this.showDetailHandler}
+            onEventDelete={this.eventDelete}
           />
         )}
       </Fragment>

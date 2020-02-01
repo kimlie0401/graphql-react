@@ -22,7 +22,7 @@ const H2 = styled.h2`
   color: #7c7c7c;
 `;
 const P = styled.p`
-  margin: 0;
+  margin: 0 1rem;
 `;
 
 const Button = styled.button`
@@ -37,6 +37,11 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const Div = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const eventItem = props => (
   <SLink to={`/events/${props.eventId}`} key={props.eventId}>
     <div>
@@ -47,7 +52,17 @@ const eventItem = props => (
     </div>
     <div>
       {props.userId === props.creatorId ? (
-        <P>Your the owner of this event.</P>
+        <Div>
+          <P>Your the owner of this event.</P>
+          <Button
+            onClick={event => {
+              event.preventDefault();
+              props.onDelete(props.eventId);
+            }}
+          >
+            Delete
+          </Button>
+        </Div>
       ) : (
         <Button
           onClick={event => {
