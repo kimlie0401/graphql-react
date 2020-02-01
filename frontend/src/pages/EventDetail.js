@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 class EventDetail extends React.Component {
   constructor(props) {
@@ -7,7 +7,13 @@ class EventDetail extends React.Component {
   }
 
   render() {
-    return <p>{this.props.match.params.id}</p>;
+    return (
+      <Fragment>
+        {console.log(this.props)}
+        <p>{this.props.title}</p>
+        <p>{this.props.match.params.id}</p>
+      </Fragment>
+    );
   }
 }
 
