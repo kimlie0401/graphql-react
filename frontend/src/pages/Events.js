@@ -217,8 +217,10 @@ class EventsPage extends Component {
   };
 
   eventDelete = eventId => {
-    const requestBody = {
-      query: `
+    let confirmToDelete = window.confirm("Are you sure to delete?!");
+    if (confirmToDelete) {
+      const requestBody = {
+        query: `
           mutation {
             deleteEvent(eventId: "${eventId}") {
               _id
@@ -229,29 +231,30 @@ class EventsPage extends Component {
             }
           }
         `
-    };
+      };
 
-    const token = this.context.token;
-    fetch("http://dkim0401.mooo.com:4588/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token
-      }
-    })
-      .then(res => {
-        if (res.status !== 200 && res.status !== 201) {
-          throw new Error("Failed!");
+      const token = this.context.token;
+      fetch("http://dkim0401.mooo.com:4588/graphql", {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
         }
-        return res.json();
       })
-      .then(resData => {
-        this.fetchEvents();
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(res => {
+          if (res.status !== 200 && res.status !== 201) {
+            throw new Error("Failed!");
+          }
+          return res.json();
+        })
+        .then(resData => {
+          this.fetchEvents();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 
   bookEventHandler = () => {

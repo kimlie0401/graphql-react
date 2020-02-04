@@ -51,7 +51,6 @@ class EventDetail extends React.Component {
       })
       .then(resData => {
         const event = resData.data.event;
-        console.log(event);
         this.setState({
           title: event.title,
           description: event.description,
