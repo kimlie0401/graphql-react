@@ -67,7 +67,7 @@ const H2 = styled.h2`
 class EventsPage extends Component {
   state = {
     creating: false,
-    loading: true,
+    loading: false,
     events: [],
     selectedEvent: null
   };
