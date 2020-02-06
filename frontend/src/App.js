@@ -8,6 +8,7 @@ import EventDetail from "./pages/EventDetail";
 import MainNavigation from "./components/Navigation/MainNavigation";
 import AuthContext from "./context/auth-context";
 import GlobalStyles from "./components/GlobalStyles";
+import Cookies from "js-cookie";
 
 import "./App.css";
 
@@ -22,7 +23,7 @@ class App extends Component {
   }
 
   storeUserInfo() {
-    let store = JSON.parse(localStorage.getItem("login"));
+    let store = Cookies.getJSON("login");
     if (store) {
       this.setState({
         token: store.token,
@@ -32,18 +33,20 @@ class App extends Component {
   }
 
   login = (token, userId, tokenExpiration) => {
-    localStorage.setItem(
+    // 15min
+    //let inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+
+    let expireTime = tokenExpiration / 24; // 1 hour
+    Cookies.set(
       "login",
-      JSON.stringify({
-        token: token,
-        userId: userId
-      })
+      { token: token, userId: userId },
+      { expires: expireTime }
     );
     this.setState({ token: token, userId: userId });
   };
 
   logout = () => {
-    localStorage.removeItem("login");
+    Cookies.remove("login");
     this.setState({ token: null, userId: null });
   };
 
