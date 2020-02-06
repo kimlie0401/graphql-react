@@ -17,11 +17,33 @@ class App extends Component {
     userId: null
   };
 
+  componentDidMount() {
+    this.storeUserInfo();
+  }
+
+  storeUserInfo() {
+    let store = JSON.parse(localStorage.getItem("login"));
+    if (store) {
+      this.setState({
+        token: store.token,
+        userId: store.userId
+      });
+    }
+  }
+
   login = (token, userId, tokenExpiration) => {
+    localStorage.setItem(
+      "login",
+      JSON.stringify({
+        token: token,
+        userId: userId
+      })
+    );
     this.setState({ token: token, userId: userId });
   };
 
   logout = () => {
+    localStorage.removeItem("login");
     this.setState({ token: null, userId: null });
   };
 
