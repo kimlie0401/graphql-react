@@ -8,7 +8,7 @@ class EventDetail extends React.Component {
       description: null,
       date: null,
       price: null,
-      loading: true
+      loading: false
     };
   }
 
