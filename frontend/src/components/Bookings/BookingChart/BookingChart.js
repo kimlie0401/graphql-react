@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Div = styled.div`
   text-align: center;
-  margin-top: 5rem;
+  margin-top: 3rem;
 `;
 
 const BOOKINGS_BUCKETS = {
