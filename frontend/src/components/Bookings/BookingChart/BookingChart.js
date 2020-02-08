@@ -40,7 +40,6 @@ const bookingChart = props => {
     values = [...values];
     values[values.length - 1] = 0;
   }
-  console.log(values);
 
   return (
     <Div>

@@ -27,8 +27,8 @@ const Button = styled.button`
 `;
 
 const Item = styled.li`
-  margin: 1rem 0;
-  padding: 1rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
   border: 1px solid rgba(46, 44, 44, 0.8);
   display: flex;
   justify-content: space-between;

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const SLink = styled(Link)`
-  margin: 1rem 0;
-  padding: 1rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
   border: 1px solid rgba(46, 44, 44, 0.8);
   display: flex;
   justify-content: space-between;
@@ -12,7 +12,7 @@ const SLink = styled(Link)`
 `;
 
 const H1 = styled.h1`
-  margin: 0;
+  margin-bottom: 0.2rem;
   font-size: 1.5rem;
   color: white;
 `;
