@@ -21,6 +21,9 @@ const Button = styled.button`
     background-color: gray;
     border-color: gray;
   }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Control = styled.div`
@@ -107,8 +110,7 @@ class EventsPage extends Component {
       return;
     }
 
-    const event = { title, price, date, description };
-    console.log(event);
+    // const event = { title, price, date, description };
 
     const requestBody = {
       query: `
@@ -313,7 +315,6 @@ class EventsPage extends Component {
         return res.json();
       })
       .then(resData => {
-        console.log(resData);
         this.setState({ selectedEvent: null });
       })
       .catch(err => {

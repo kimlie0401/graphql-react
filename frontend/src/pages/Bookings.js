@@ -2,11 +2,14 @@ import React, { Component, Fragment } from "react";
 import AuthContext from "../context/auth-context";
 import Loader from "../components/Loader/Loader";
 import BookingList from "../components/Bookings/BookingList/BookingList";
+import BookingChart from "../components/Bookings/BookingChart/BookingChart";
+import BookingControl from "../components/Bookings/BookingControls/BookingControls";
 
 class BookingsPage extends Component {
   state = {
     loading: true,
-    bookings: []
+    bookings: [],
+    outputType: "list"
   };
 
   static contextType = AuthContext;
@@ -26,6 +29,7 @@ class BookingsPage extends Component {
               _id
               title
               date 
+              price
             }
           }
         }
@@ -106,19 +110,38 @@ class BookingsPage extends Component {
     }
   };
 
+  changeOutputTypeHandler = outputType => {
+    if (outputType === "list") {
+      this.setState({ outputType: "list" });
+    } else {
+      this.setState({ outputType: "chart" });
+    }
+  };
+
   render() {
-    return (
-      <Fragment>
-        {this.state.loading ? (
-          <Loader />
-        ) : (
-          <BookingList
-            bookings={this.state.bookings}
-            onDelete={this.deleteBookingHandler}
+    let content = <Loader />;
+    if (!this.state.loading) {
+      content = (
+        <Fragment>
+          <BookingControl
+            activeOutputType={this.state.outputType}
+            onControl={this.changeOutputTypeHandler}
           />
-        )}
-      </Fragment>
-    );
+          <div>
+            {this.state.outputType === "list" ? (
+              <BookingList
+                bookings={this.state.bookings}
+                onDelete={this.deleteBookingHandler}
+              />
+            ) : (
+              <BookingChart bookings={this.state.bookings} />
+            )}
+          </div>
+        </Fragment>
+      );
+    }
+
+    return <Fragment>{content}</Fragment>;
   }
 }
 
