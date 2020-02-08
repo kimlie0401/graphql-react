@@ -12,13 +12,13 @@ const SLink = styled(Link)`
 `;
 
 const H1 = styled.h1`
-  margin-bottom: 0.2rem;
-  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+  font-size: 1.2rem;
   color: white;
 `;
 const H2 = styled.h2`
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.7rem;
   color: #7c7c7c;
 `;
 const P = styled.p`
